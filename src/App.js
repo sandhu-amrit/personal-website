@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Home from "./components/Home/Home";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./theme";
+import Career from "./components/Career/Career";
+import Navbar from "./components/Navbar/Navbar";
+import { GlobalStyles } from "./globalStyles";
+import Contact from "./components/Contact/Contact";
 
 function App() {
+  const [theme, setTheme] = useState(lightTheme);
+
+  const handleToggleTheme = () => {
+    setTheme(theme === lightTheme ? darkTheme : lightTheme);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Navbar theme={theme} onToggleTheme={handleToggleTheme} />
+      <Home />
+      <Career />
+      <Contact />
+    </ThemeProvider>
   );
 }
 
